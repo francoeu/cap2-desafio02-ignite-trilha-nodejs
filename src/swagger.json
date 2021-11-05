@@ -1,0 +1,333 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Ignite NodeJs - Desafio 02",
+        "description": "Documentando com Swagger",
+        "version": "1.0.0",
+        "contact": {
+            "email": "francoeu.me@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["Users"],
+                "sumary": "Create a user",
+                "description": "Create a new user",
+                "requestBody": {
+                    "required": "true",
+                    "description": "Campos obrigatórios para criação de um usuário.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Dan F"
+                                    },
+                                    "email": {
+                                        "type":"string",
+                                        "example": "dan@email.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                },
+                "responses": {
+                    "201":{
+                        "description": "Operação realizada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "admin": {
+                                            "type":"boolean",
+                                            "example": "false",
+                                            "description": "Usuário é admin?"
+                                        },
+                                        "id": {
+                                            "type":"string",
+                                            "example": "1f532132-1bf4-422d-bc81-123428c9f7b5",
+                                            "description": "O ID do usuário."
+                                        },
+                                        "name":{
+                                            "type": "string",
+                                            "example": "Dan F",
+                                            "description": "O nome do usuário."
+                                        },
+                                        "email":{
+                                            "type":"string",
+                                            "example": "dan@email.com",
+                                            "description": "O email do usuário."
+                                        },
+                                        "created_at": {
+                                            "type":"string",
+                                            "format": "date-time",
+                                            "description": "Data de criação."
+                                        },
+                                        "updated_at": {
+                                            "type":"string",
+                                            "format": "date-time",
+                                            "description": "Data de atualização."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Email já está sendo utilizado!",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type":"error",
+                                            "example": "This email is already in use!"
+                                        }
+                                    }
+                                  
+                                }
+                            }
+                        }
+
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Users"],
+                "sumary": "Retorna todos os usuários.",
+                "description": "Listagem de usuários.",
+                "responses": {
+                    "200":{
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "admin": {
+                                                "type":"boolean",
+                                                "example": "false",
+                                                "description": "Usuário é admin?"
+                                            },
+                                            "id": {
+                                                "type":"string",
+                                                "example": "1f532132-1bf4-422d-bc81-123428c9f7b5",
+                                                "description": "O ID do usuário."
+                                            },
+                                            "name":{
+                                                "type": "string",
+                                                "example": "Dan F",
+                                                "description": "O nome do usuário."
+                                            },
+                                            "email":{
+                                                "type":"string",
+                                                "example": "dan@email.com",
+                                                "description": "O email do usuário."
+                                            },
+                                            "created_at": {
+                                                "type":"string",
+                                                "format": "date-time",
+                                                "description": "Data de criação."
+                                            },
+                                            "updated_at": {
+                                                "type":"string",
+                                                "format": "date-time",
+                                                "description": "Data de atualização."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Sem permissão!",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type":"error",
+                                            "example": "No permission!"
+                                        }
+                                    }
+                                  
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": ["Users"],
+                "sumary": "Retorna um usuário específico.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": "true",
+                        "description": "Passe o ID do usuário para retorná-lo."
+                    }
+                ], 
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "admin": {
+                                            "type":"boolean",
+                                            "example": "false",
+                                            "description": "Usuário é admin?"
+                                        },
+                                        "id": {
+                                            "type":"string",
+                                            "example": "1f532132-1bf4-422d-bc81-123428c9f7b5",
+                                            "description": "O ID do usuário."
+                                        },
+                                        "name":{
+                                            "type": "string",
+                                            "example": "Dan F",
+                                            "description": "O nome do usuário."
+                                        },
+                                        "email":{
+                                            "type":"string",
+                                            "example": "dan@email.com",
+                                            "description": "O email do usuário."
+                                        },
+                                        "created_at": {
+                                            "type":"string",
+                                            "format": "date-time",
+                                            "description": "Data de criação."
+                                        },
+                                        "updated_at": {
+                                            "type":"string",
+                                            "format": "date-time",
+                                            "description": "Data de atualização."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description": "Usuário não encontrado!",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type":"error",
+                                            "example": "User not found!"
+                                        }
+                                    }
+                                  
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": ["Users"],
+                "sumary": "Torna um usuário admin",
+                "description": "Torna um usuário admin",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": "true",
+                        "description": "Passe o ID do usuário para torná-lo admin."
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "admin": {
+                                            "type":"boolean",
+                                            "example": "true",
+                                            "description": "Usuário é admin?"
+                                        },
+                                        "id": {
+                                            "type":"string",
+                                            "example": "1f532132-1bf4-422d-bc81-123428c9f7b5",
+                                            "description": "O ID do usuário."
+                                        },
+                                        "name":{
+                                            "type": "string",
+                                            "example": "Dan F",
+                                            "description": "O nome do usuário."
+                                        },
+                                        "email":{
+                                            "type":"string",
+                                            "example": "dan@email.com",
+                                            "description": "O email do usuário."
+                                        },
+                                        "created_at": {
+                                            "type":"string",
+                                            "format": "date-time",
+                                            "description": "Data de criação."
+                                        },
+                                        "updated_at": {
+                                            "type":"string",
+                                            "format": "date-time",
+                                            "description": "Data de atualização."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description": "Usuário não encontrado!",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type":"error",
+                                            "example": "User not found!"
+                                        }
+                                    }
+                                  
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
